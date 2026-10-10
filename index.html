@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ne">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>शिक्षा साथी - शिक्षक अभिलेख खोज तथा व्यवस्थापन पोर्टल</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Nepali Google Font (Mukta) -->
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    body { font-family: 'Mukta', sans-serif; background-color: #f1f5f9; }
+    .gov-header { background: linear-gradient(135deg, #8b0000 0%, #b91c1c 100%); border-bottom: 4px solid #1e3a8a; }
+  </style>
+</head>
+<body class="text-slate-900">
+
+  <!-- Official Top Bar -->
+  <div class="bg-blue-950 text-white text-xs py-1 px-6 flex justify-between items-center border-b border-blue-900">
+    <div class="flex items-center gap-3">
+      <span><i class="fa-solid fa-location-dot text-red-400 mr-1"></i>पोखरा, कास्की, नेपाल</span>
+      <span class="hidden sm:inline">|</span>
+      <span class="hidden sm:inline"><i class="fa-solid fa-phone text-emerald-400 mr-1"></i>+977 9768006667</span>
+    </div>
+    <div>
+      <span class="bg-red-700 px-2 py-0.5 rounded font-bold uppercase text-[10px] tracking-wide">आधिकारिक अभिलेख प्रणाली</span>
+    </div>
+  </div>
+
+  <!-- Government Style Header Bar -->
+  <header class="gov-header text-white shadow-lg py-5 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="bg-white p-2 rounded-xl shadow-md border border-slate-200">
+          <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiL7dDqEm-oYV5DXpfPm4YM9kpU1IB3uRoxQn6itok7vJskTq8Uts_flkvKk-QRxXK1R7k8fJ3s5pRHCmLbSnlA2uiocm_uwmGOmlPwI90_NOIWnclF8_JW-r3AWE2u36-ExBJSK6L82fZoB_75xwgzzTKwhX4Zza7T_M20GkGI38Y4vLc6Yi1EDMu6FDso/s1254/1000275071.png" alt="Shikshya Sathi Logo" class="h-14 w-auto object-contain">
+        </div>
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-extrabold tracking-wide">शिक्षा साथी (Shikshya Sathi)</h1>
+          <p class="text-xs sm:text-sm text-red-100 font-semibold flex items-center gap-1.5 mt-0.5">
+            <i class="fa-solid fa-graduation-cap"></i> गृहट्युसन सेवा पोखरा — शिक्षक कागजात खोज तथा प्रमाणीकरण पोर्टल
+          </p>
+        </div>
+      </div>
+      <div class="text-right bg-black/20 p-3 rounded-xl border border-white/20 backdrop-blur-sm">
+        <p class="text-xs font-bold text-yellow-300"><i class="fa-solid fa-database mr-1"></i> Google Drive Cloud Server</p>
+        <p class="text-[11px] text-slate-200 mt-0.5">सुरक्षित अभिलेख भण्डारण</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto my-6 px-4 sm:px-6">
+    
+    <!-- Top Stats Bar -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-red-700 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-500 uppercase">जम्मा दर्ता शिक्षकहरू</p>
+          <h3 id="statTotalTeachers" class="text-2xl font-black text-slate-800">०</h3>
+        </div>
+        <div class="w-12 h-12 bg-red-50 text-red-700 rounded-full flex items-center justify-center text-xl">
+          <i class="fa-solid fa-users"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-blue-900 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-500 uppercase">कुल भण्डारित कागजातहरू</p>
+          <h3 id="statTotalFiles" class="text-2xl font-black text-slate-800">०</h3>
+        </div>
+        <div class="w-12 h-12 bg-blue-50 text-blue-900 rounded-full flex items-center justify-center text-xl">
+          <i class="fa-solid fa-folder-open"></i>
+        </div>
+      </div>
+
+      <div class="bg-white p-4 rounded-xl shadow-sm border-l-4 border-emerald-600 flex items-center justify-between">
+        <div>
+          <p class="text-xs font-bold text-slate-500 uppercase">सर्भर स्थिति (Server Status)</p>
+          <h3 class="text-sm font-bold text-emerald-600 mt-1"><i class="fa-solid fa-circle text-[10px] mr-1"></i> Live & Synced</h3>
+        </div>
+        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center text-xl">
+          <i class="fa-solid fa-cloud-check"></i>
+        </div>
+      </div>
+    </div>
+
+    <!-- Search & Control Card -->
+    <div class="bg-white rounded-xl shadow-md border border-slate-200 p-6 mb-8">
+      <div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+        
+        <!-- Search Input Bar -->
+        <div class="relative w-full md:w-2/3">
+          <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+            <i class="fa-solid fa-magnifying-glass text-slate-400 text-lg"></i>
+          </div>
+          <input type="text" id="searchInput" onkeyup="filterTeachers()" placeholder="शिक्षकको नाम टाइप गरी तुरुन्तै खोज्नुहोस् (उदा: राम श्रेष्ठ)..." class="w-full pl-11 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl focus:ring-2 focus:ring-red-600 focus:bg-white focus:outline-none text-sm font-semibold text-slate-800 shadow-inner transition">
+        </div>
+
+        <!-- Refresh Button -->
+        <button onclick="fetchTeacherData()" class="w-full md:w-auto bg-blue-900 hover:bg-blue-950 text-white font-bold px-6 py-3 rounded-xl shadow transition flex items-center justify-center gap-2 text-sm">
+          <i class="fa-solid fa-rotate-right"></i> डाटा रिफ्रेस गर्नुहोस्
+        </button>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div id="loadingBox" class="text-center py-16 bg-white rounded-xl shadow border border-slate-200">
+      <i class="fa-solid fa-circle-notch fa-spin text-red-700 text-4xl mb-3"></i>
+      <p class="text-base font-bold text-slate-700">गुगल ड्राइभबाट शिक्षकहरूको विवरण लोड हुँदैछ...</p>
+      <p class="text-xs text-slate-400 mt-1">कृपया केही सेकेन्ड पर्खनुहोस्</p>
+    </div>
+
+    <!-- Teacher Directory List Container -->
+    <div id="dataContainer" class="hidden space-y-6">
+      <!-- Dynamic Teacher Cards will be rendered here -->
+    </div>
+
+    <!-- No Results Found State -->
+    <div id="noResultsBox" class="hidden text-center py-12 bg-white rounded-xl border border-slate-200">
+      <i class="fa-solid fa-user-slash text-slate-300 text-5xl mb-3"></i>
+      <h3 class="text-lg font-bold text-slate-700">तपाईंले खोज्नुभएको नामको शिक्षक भेटिएन!</h3>
+      <p class="text-xs text-slate-500 mt-1">कृपया स्पेलिङ जाँच गरी पुनः प्रयास गर्नुहोस्।</p>
+    </div>
+
+  </main>
+
+  <footer class="mt-12 bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
+    <p class="font-bold text-slate-700">शिक्षा साथी (Shikshya Sathi) गृहट्युसन सेवा पोखरा</p>
+    <p class="mt-1">&copy; 2026 Shikshya Sathi. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // Google Apps Script Deploy गरिएको URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbzSJUOXcEncMfGHaF-nM_SqNJySXWxixqseGPwHsoSKzw4gB7JULX3nDzh-8beLx9yl/exec';
+
+    let globalTeachersData = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      fetchTeacherData();
+    });
+
+    // Fetch All Data From Google Drive
+    function fetchTeacherData() {
+      const loadingBox = document.getElementById('loadingBox');
+      const dataContainer = document.getElementById('dataContainer');
+      const noResultsBox = document.getElementById('noResultsBox');
+
+      loadingBox.classList.remove('hidden');
+      dataContainer.classList.add('hidden');
+      noResultsBox.classList.add('hidden');
+
+      fetch(scriptURL)
+        .then(response => response.json())
+        .then(data => {
+          loadingBox.classList.add('hidden');
+
+          if (data.status === 'success' && data.teachers) {
+            globalTeachersData = data.teachers;
+            updateStatistics(globalTeachersData);
+            renderTeacherCards(globalTeachersData);
+          } else {
+            noResultsBox.classList.remove('hidden');
+          }
+        })
+        .catch(error => {
+          loadingBox.classList.add('hidden');
+          alert("डेटा लोड गर्दा त्रुटि भयो! कृपया कनेक्सन वा Apps Script URL जाँच गर्नुहोस्।");
+          console.error('Error fetching data:', error);
+        });
+    }
+
+    // Update Statistics Bar
+    function updateStatistics(teachers) {
+      document.getElementById('statTotalTeachers').innerText = teachers.length;
+      let totalFiles = 0;
+      teachers.forEach(t => totalFiles += t.files.length);
+      document.getElementById('statTotalFiles').innerText = totalFiles;
+    }
+
+    // Render Cards in DOM
+    function renderTeacherCards(teachers) {
+      const dataContainer = document.getElementById('dataContainer');
+      const noResultsBox = document.getElementById('noResultsBox');
+
+      dataContainer.innerHTML = '';
+
+      if (teachers.length === 0) {
+        dataContainer.classList.add('hidden');
+        noResultsBox.classList.remove('hidden');
+        return;
+      }
+
+      noResultsBox.classList.add('hidden');
+      dataContainer.classList.remove('hidden');
+
+      teachers.forEach((teacher, index) => {
+        let filesHtml = '';
+        
+        teacher.files.forEach(file => {
+          const isPdf = file.name.toLowerCase().endsWith('.pdf') || file.type.includes('pdf');
+          const iconClass = isPdf ? 'fa-file-pdf text-red-600' : 'fa-image text-blue-600';
+          const badgeClass = isPdf ? 'bg-red-50 text-red-700 border-red-200' : 'bg-blue-50 text-blue-700 border-blue-200';
+
+          filesHtml += `
+            <div class="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg border border-slate-200 transition">
+              <div class="flex items-center gap-3 min-w-0 pr-2">
+                <i class="fa-solid ${iconClass} text-xl shrink-0"></i>
+                <div class="truncate">
+                  <p class="font-bold text-xs text-slate-800 truncate">${file.name}</p>
+                  <span class="inline-block text-[9px] px-1.5 py-0.5 rounded border font-semibold ${badgeClass}">
+                    ${isPdf ? '5-Page Agreement PDF' : 'Document Image'}
+                  </span>
+                </div>
+              </div>
+              <a href="${file.url}" target="_blank" class="bg-red-700 hover:bg-red-800 text-white px-3 py-1.5 rounded-lg font-bold text-xs shadow flex items-center gap-1.5 shrink-0 transition">
+                <i class="fa-solid fa-eye"></i> हेर्नुहोस्
+              </a>
+            </div>
+          `;
+        });
+
+        const card = `
+          <div class="teacher-card bg-white rounded-xl shadow-md border border-slate-200 overflow-hidden" data-name="${teacher.teacherName.toLowerCase()}">
+            <div class="bg-gradient-to-r from-slate-900 to-blue-950 text-white px-6 py-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 border-b-2 border-red-700">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-red-700 rounded-full flex items-center justify-center font-bold text-white text-lg shadow">
+                  ${index + 1}
+                </div>
+                <div>
+                  <h2 class="text-lg font-extrabold tracking-wide text-yellow-300">${teacher.teacherName}</h2>
+                  <p class="text-xs text-slate-300"><i class="fa-solid fa-folder text-amber-400 mr-1"></i> गुगल ड्राइभ सब-फोल्डर दर्ता</p>
+                </div>
+              </div>
+              <span class="bg-emerald-600/90 text-white text-xs font-bold px-3 py-1 rounded-full shadow">
+                ${teacher.files.length} वटा संलग्न फाइलहरू
+              </span>
+            </div>
+
+            <div class="p-6">
+              <h4 class="text-xs font-extrabold uppercase text-slate-500 tracking-wider mb-3 flex items-center gap-2">
+                <i class="fa-solid fa-paperclip text-red-700"></i> शिक्षकको व्यक्तिगत कागजातहरू र सम्झौता पत्र:
+              </h4>
+              <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                ${filesHtml}
+              </div>
+            </div>
+          </div>
+        `;
+
+        dataContainer.innerHTML += card;
+      });
+    }
+
+    // Real-Time Search Filter Function
+    function filterTeachers() {
+      const query = document.getElementById('searchInput').value.toLowerCase().trim();
+      const filtered = globalTeachersData.filter(t => t.teacherName.toLowerCase().includes(query));
+      renderTeacherCards(filtered);
+    }
+  </script>
+</body>
+</html>
